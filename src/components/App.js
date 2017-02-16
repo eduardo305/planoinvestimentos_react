@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
+import GrommetApp from 'grommet/components/App';
 import logo from '../logo.svg';
+import TopBar from './TopBar';
+import LoginForm from './LoginForm';
 import '../styles/App.scss';
-import '../styles/test.scss';
+import '../styles/index.scss';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <GrommetApp centered={ true }>
+        <TopBar />
+        <LoginForm />
+      </GrommetApp>
     );
   }
 }

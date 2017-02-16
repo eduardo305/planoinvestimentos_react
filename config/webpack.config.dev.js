@@ -6,8 +6,20 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var path = require('path');
 
+var styleLoaders = [
+  'style-loader',
+  'css-loader?sourceMap',
+  'sass-loader?sourceMap&outputStyle=expanded&' +
+  'includePaths[]=' +
+  (encodeURIComponent(process.cwd() + '/node_modules'))
+];
 
+var cssLoaders = [
+  'style-loader',
+  'css-loader?sourceMap'
+];
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -72,7 +84,7 @@ module.exports = {
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: ['.js', '.json', '.jsx', '.scss', ''],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -152,7 +164,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        loader: styleLoaders.join('!')
       },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
