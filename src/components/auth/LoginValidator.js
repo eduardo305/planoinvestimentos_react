@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import React from 'react';
 
 const validate = values => {
   const errors = {}

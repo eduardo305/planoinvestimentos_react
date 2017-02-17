@@ -1,13 +1,15 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import GrommetLoginForm from 'grommet/components/LoginForm';
 import Anchor from 'grommet/components/Anchor';
 import Box from 'grommet/components/Box';
-import Logo from './Logo';
+import Logo from '../Logo';
 import validate from './LoginValidator';
+import { signin } from '../../actions';
 
 
-class LoginForm extends Component {
+class SigninForm extends Component {
     state = {
         busy: false,
         errors: []
@@ -16,10 +18,10 @@ class LoginForm extends Component {
     onSubmit(fields) {
         const errors = _.toArray(validate(fields));
         
-        if (errors) {
+        if (!_.isEmpty(errors)) {
             this.setState({ errors });
         } else {
-            console.log('Yeaaahh!!');
+            this.props.signin(fields);
         }
     }
     
@@ -37,5 +39,11 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+    return {
+        error: state.auth.error
+    }
+}
+
+export default connect(mapStateToProps, { signin })(SigninForm);
 
